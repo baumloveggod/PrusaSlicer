@@ -49,7 +49,7 @@ Other major features are:
 * [customizable **G-code macros**](https://github.com/prusa3d/PrusaSlicer/wiki/PrusaSlicer-Macro-Language) and output filename with variable placeholders
 * support for **post-processing scripts**
 * **cooling logic** controlling fan speed and dynamic print speed
-* Expertenmodus-Feld `baum_head_freedom` zur Beschreibung des Druckkopf-Freiheitsgrades (siehe [Dokumentation](doc/Freiheitsgrade_Baum.md))
+* Optionen für Freiheitsgrade im Bauraum (`extruder_clearance_x_pos`, `extruder_clearance_x_neg`, `extruder_clearance_y_pos`, `extruder_clearance_y_neg`) siehe [Dokumentation](doc/Freiheitsgrade_Baum.md)
 
 ### Development
 
