@@ -1148,6 +1148,38 @@ void PrintConfigDef::init_fff_params()
     def->mode = comExpert;
     def->set_default_value(new ConfigOptionFloat(20));
 
+    def = this->add("extruder_clearance_x_pos", coFloat);
+    def->label = L("X+ offset");
+    def->tooltip = L("Distance from nozzle center to the frontmost part of the extruder.");
+    def->sidetext = L("mm");
+    def->min = 0;
+    def->mode = comExpert;
+    def->set_default_value(new ConfigOptionFloat(20));
+
+    def = this->add("extruder_clearance_x_neg", coFloat);
+    def->label = L("X- offset");
+    def->tooltip = L("Distance from nozzle center to the rearmost part of the extruder.");
+    def->sidetext = L("mm");
+    def->min = 0;
+    def->mode = comExpert;
+    def->set_default_value(new ConfigOptionFloat(20));
+
+    def = this->add("extruder_clearance_y_pos", coFloat);
+    def->label = L("Y+ offset");
+    def->tooltip = L("Distance from nozzle center to the rightmost part of the extruder.");
+    def->sidetext = L("mm");
+    def->min = 0;
+    def->mode = comExpert;
+    def->set_default_value(new ConfigOptionFloat(20));
+
+    def = this->add("extruder_clearance_y_neg", coFloat);
+    def->label = L("Y- offset");
+    def->tooltip = L("Distance from nozzle center to the leftmost part of the extruder.");
+    def->sidetext = L("mm");
+    def->min = 0;
+    def->mode = comExpert;
+    def->set_default_value(new ConfigOptionFloat(20));
+
     def = this->add("extruder_colour", coStrings);
     def->label = L("Extruder Color");
     def->tooltip = L("This is only used in the Slic3r interface as a visual help.");
