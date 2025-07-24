@@ -123,7 +123,8 @@ if (OPENVDB_FIND_MODULE_PATH)
 endif ()
 # ###########################################################################
 
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.5...3.28)
+
 # Monitoring <PackageName>_ROOT variables
 if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
@@ -347,17 +348,12 @@ macro(just_fail msg)
   return()
 endmacro()
 
-find_package(IlmBase QUIET)
-if(NOT IlmBase_FOUND)
-  pkg_check_modules(IlmBase QUIET IlmBase)
-endif()
-if (IlmBase_FOUND AND NOT TARGET IlmBase::Half)
-  message(STATUS "Falling back to IlmBase found by pkg-config...")
+find_package(Imath REQUIRED)
 
-  find_library(IlmHalf_LIBRARY NAMES Half)
-  if(IlmHalf_LIBRARY-NOTFOUND OR NOT IlmBase_INCLUDE_DIRS)
-    just_fail("IlmBase::Half can not be found!")
-  endif()
+if (NOT TARGET Imath::Imath)
+  just_fail("Imath::Imath (successor of IlmBase::Half) could not be found!")
+endif()
+
   
   add_library(IlmBase::Half UNKNOWN IMPORTED)
   set_target_properties(IlmBase::Half PROPERTIES
