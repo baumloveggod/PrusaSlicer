@@ -50,6 +50,8 @@ CMAKE_DEPENDENT_OPTION(SLIC3R_OPENGL_ES "Compile PrusaSlicer targeting OpenGL ES
 # If SLIC3R_FHS is 1 -> SLIC3R_DESKTOP_INTEGRATION is always 0, otherwise variable.
 CMAKE_DEPENDENT_OPTION(SLIC3R_DESKTOP_INTEGRATION "Allow perfoming desktop integration during runtime" 1 "NOT SLIC3R_FHS" 0)
 
+option(SLIC3R_OPENVDB "Enable OpenVDB functionality" ON)
+
 set(OPENVDB_FIND_MODULE_PATH "" CACHE PATH "Path to OpenVDB installation's find modules.")
 
 set(SLIC3R_GTK "2" CACHE STRING "GTK version to use with wxWidgets on Linux")
@@ -563,20 +565,22 @@ endforeach()
 find_package(NLopt 1.4 REQUIRED)
 slic3r_remap_configs(NLopt::nlopt RelWithDebInfo Release)
 
-if(SLIC3R_STATIC)
-    set(OPENVDB_USE_STATIC_LIBS ON)
-    set(USE_BLOSC TRUE)
-endif ()
+if(SLIC3R_OPENVDB)
+    if(SLIC3R_STATIC)
+        set(OPENVDB_USE_STATIC_LIBS ON)
+        set(USE_BLOSC TRUE)
+    endif ()
 
-find_package(OpenVDB 5.0 COMPONENTS openvdb)
-if(OpenVDB_FOUND)
-    slic3r_remap_configs(IlmBase::Half RelWithDebInfo Release)
-    slic3r_remap_configs(Blosc::blosc RelWithDebInfo Release)
-else ()
-    message(FATAL_ERROR "OpenVDB could not be found with the bundled find module. "
-                   "You can try to specify the find module location of your "
-                   "OpenVDB installation with the OPENVDB_FIND_MODULE_PATH cache variable.")
-endif ()
+    find_package(OpenVDB 5.0 COMPONENTS openvdb)
+    if(OpenVDB_FOUND)
+        slic3r_remap_configs(Imath::Imath RelWithDebInfo Release)
+        slic3r_remap_configs(Blosc::blosc RelWithDebInfo Release)
+    else ()
+        message(FATAL_ERROR "OpenVDB could not be found with the bundled find module. "
+                       "You can try to specify the find module location of your "
+                       "OpenVDB installation with the OPENVDB_FIND_MODULE_PATH cache variable.")
+    endif ()
+endif()
 
 set(TOP_LEVEL_PROJECT_DIR ${PROJECT_SOURCE_DIR})
 function(prusaslicer_copy_dlls target)

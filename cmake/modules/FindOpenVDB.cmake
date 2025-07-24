@@ -354,14 +354,6 @@ if (NOT TARGET Imath::Imath)
   just_fail("Imath::Imath (successor of IlmBase::Half) could not be found!")
 endif()
 
-  
-  add_library(IlmBase::Half UNKNOWN IMPORTED)
-  set_target_properties(IlmBase::Half PROPERTIES
-    IMPORTED_LOCATION "${IlmHalf_LIBRARY}"
-    INTERFACE_INCLUDE_DIRECTORIES "${IlmBase_INCLUDE_DIRS}")
-elseif(NOT IlmBase_FOUND)
-  just_fail("IlmBase::Half can not be found!")
-endif()
 find_package(TBB ${_quiet} ${_required} COMPONENTS tbb)
 find_package(ZLIB ${_quiet} ${_required})
 find_package(Boost ${_quiet} ${_required} COMPONENTS iostreams system )
