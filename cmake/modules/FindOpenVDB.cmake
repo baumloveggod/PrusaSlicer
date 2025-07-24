@@ -350,7 +350,7 @@ endmacro()
 
 find_package(Imath REQUIRED)
 
-if (NOT TARGET Imath::Imath)
+if(NOT TARGET Imath::Imath)
   just_fail("Imath::Imath (successor of IlmBase::Half) could not be found!")
 endif()
 
@@ -439,7 +439,7 @@ if(OpenVDB_USES_LOG4CPLUS)
 endif()
 
 if(OpenVDB_USES_ILM)
-  find_package(IlmBase ${_quiet} ${_required})
+  find_package(Imath ${_quiet} ${_required})
 endif()
 
 if(OpenVDB_USES_EXR)
@@ -459,7 +459,7 @@ endif()
 set(_OPENVDB_VISIBLE_DEPENDENCIES
   Boost::iostreams
   Boost::system
-  IlmBase::Half
+  Imath::Imath
 )
 
 set(_OPENVDB_DEFINITIONS)
@@ -469,9 +469,7 @@ endif()
 
 if(OpenVDB_USES_EXR)
   list(APPEND _OPENVDB_VISIBLE_DEPENDENCIES
-    IlmBase::IlmThread
-    IlmBase::Iex
-    IlmBase::Imath
+    Imath::Imath
     OpenEXR::IlmImf
   )
   list(APPEND _OPENVDB_DEFINITIONS "-DOPENVDB_TOOLS_RAYTRACER_USE_EXR")
